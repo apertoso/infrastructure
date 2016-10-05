@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_wizard_import_git_form" model="ir.ui.view">
+            <field name="name">view_wizard_import_git_form</field>
+            <field name="model">wizard.import.git</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="githost_id"/>
+                        <field name="gitgroup_id"/>
+                    </group>
+                    <separator string="Repositories to add"/>
+                    <field name="repository_ids" colspan="4">
+                        <tree>
+                            <field name="name"/>
+                            <field name="external_id_git"/>
+                        </tree>
+                    </field>
+
+                     <footer>
+                        <button name="do_create_repositories"
+                                string="Add repositories" type="object"
+                                class="oe_highlight"/>
+                         or
+                        <button string="Cancel" class="oe_link"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_import_git_form"
+                model="ir.actions.act_window">
+            <field name="name">Import repositories from git</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.import.git</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</openerp>   

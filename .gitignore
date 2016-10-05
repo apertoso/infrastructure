@@ -1,0 +1,20 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+.settings
+.DS_Store
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/

@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_odoo_instance_form" model="ir.ui.view">
+            <field name="name">odoo.instance.form</field>
+            <field name="model">odoo.instance</field>
+            <field name="arch" type="xml">
+                <form string="Odoo Instance">
+                    <header>
+                        <button type="action"
+                                string="Create copy"
+                                name="%(action_wizard_create_copy)d"
+                                class="oe_highlight btn btn-sm btn-primary"
+                        />
+                        <button type="object"
+                                string="Trigger build"
+                                name="do_trigger_build"
+                                attrs="{'invisible':['!',('state','in',('prod','test'))]}"
+                                class="oe_highlight btn btn-sm btn-primary"
+                        />
+                        <field name="state" widget="statusbar" clickable="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"
+                                   string='Name'/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"
+                                       options="{'no_create': True}"/>
+                                <field name="user_id"
+                                       options="{'no_create': True}"/>
+                                <!-- <field name="subscription_id"/> -->
+                            </group>
+                            <group>
+                                <field name="odoo_version"/>
+                                <field name="odoo_enterprise"
+                                       attrs="{'invisible': [('odoo_version','in',('7.0','8.0'))]}"/>
+                                <field name="parent_ids"
+                                       widget="many2many_tags"
+                                       options="{'no_create': True}"/>
+                                <field name="key"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Odoo Instance data">
+                                <group>
+                                    <group>
+                                        <field name="db_name"/>
+                                        <field name="odoo_master_pwd"/>
+                                        <field name="instance_url"/>
+                                        <field name="opw_contract"/>
+                                    </group>
+                                    <group>
+                                        <field name="docker_image_id"
+                                               options="{'no_create': True}"/>
+                                        <field name="docker_image_tag_id"
+                                               context="{'default_docker_image_id': docker_image_id}"
+                                               options="{'no_create': True}"/>
+                                        <field name="parent_docker_image_id"
+                                               options="{'no_create': True}"/>
+                                        <field name="parent_docker_image_tag_id"
+                                               options="{'no_create': True}"
+                                               context="{'default_docker_image_id': parent_docker_image_id}"/>
+                                        <field name="apt_package_ids"
+                                               widget="many2many_tags"/>
+                                        <field name="pip_module_ids"
+                                               widget="many2many_tags"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="export_url" colspan="4"/>
+
+                                    <separator string="Used Branches"/>
+                                    <field name="branch_ids" colspan="4"
+                                           nolabel="1"
+                                           context="{'default_instance_id':id}">
+                                        <tree>
+                                            <field name="branch_id"/>
+                                            <field name="enabled_module_ids"/>
+                                            <field name="repository_id"/>
+                                            <field name="odoo_version"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="branch_id"
+                                                       domain="[('odoo_version', '=', parent.odoo_version)]"
+                                                       options="{'no_create': True}"/>
+                                            </group>
+                                            <group string="Enabeled Modules">
+                                                <field name="enabled_module_ids"
+                                                       nolabel="1" cols="2"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Ansible Infrastructure"
+                                  attrs="{'invisible': [('state','!=','prod')]}">
+                                <group>
+                                    <group>
+                                        <field name="fqdn"/>
+                                        <field name="ip"/>
+                                        <field name="customer"/>
+                                        <field name="psql_dbpass"/>
+                                        <field name="odoo_dbfilter"/>
+                                        <field name="sentry_enabled"/>
+                                        <field name="sentry_client_dsn"/>
+                                    </group>
+                                    <group>
+                                        <field name="openvz_production_cid"/>
+                                        <field name="ip_backup"/>
+                                        <field name="openvz_backup_cid"/>
+                                        <field name="configure_zabbix"/>
+                                        <field name="ansible_group_ids"
+                                               widget="many2many_tags"/>
+
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Build Info">
+                                <group string="Build Trigger info">
+                                    <field name="build_trigger_url"/>
+                                    <field name="build_trigger_token"/>
+                                    <field name="build_trigger_ref"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"
+                               widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoo_instance_tree" model="ir.ui.view">
+            <field name="name">odoo.instance.tree</field>
+            <field name="model">odoo.instance</field>
+            <field name="arch" type="xml">
+                <tree string="Odoo Instances">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="odoo_version"/>
+                    <field name="odoo_enterprise"/>
+                    <field name="state" widget="statusbar"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoo_instance_search" model="ir.ui.view">
+            <field name="name">odoo.instance.search</field>
+            <field name="model">odoo.instance</field>
+            <field name="arch" type="xml">
+                <search string="Odoo Instances">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="partner_id"/>
+                    <filter name="state" string="state"/>
+                    <filter name="odoo_version" string="Version"/>
+                    <filter name="odoo_enterprise" string="Enterprise"/>
+                    <filter name="user_id" string="Instance owner"/>
+                    <filter name="opw_contract" string="Odoo contract"/>
+                    <filter name="version_groupby" string="Version"
+                            context="{'group_by': 'odoo_version'}"/>
+                    <filter name="state_groupby" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Public/My instances"
+                            name="my_instances"
+                            domain="['|',('user_id', '=', uid),('user_id', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_git_branch_form" model="ir.ui.view">
+            <field name="name">git.branch.from</field>
+            <field name="model">git.branch</field>
+            <field name="arch" type="xml">
+                <form string="Git Branch">
+                    <header>
+                        <button type="object"
+                                string="Import modules"
+                                name="update_modules"
+                                class="oe_highlight btn btn-sm btn-primary"
+                                attrs="{'invisible':['!',('api','in',('gitlab','github'))]}"/>
+
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"
+                                   string='Repository - Name'/>
+                            <h1>
+                                <field name="repository_id" class="oe_inline"/>
+                                <span class="oe_read_only">(</span>
+                                <field name="name"/>
+                                <span class="oe_read_only">)</span>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="api" invisible="1"/>
+                                <field name="odoo_version"/>
+                                <field name="ref_name"/>
+                            </group>
+                        </group>
+                        <separator string="Odoo Modules"/>
+                        <field name="odoo_module_ids" nolabel="1" colspan="4"
+                               context="{'default_branch_id':id}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_git_branch_tree" model="ir.ui.view">
+            <field name="name">git.branch.tree</field>
+            <field name="model">git.branch</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="githost_id"/>
+                    <field name="repository_id"/>
+                    <field name="gitgroup_id"/>
+                    <field name="name"/>
+                    <field name="odoo_version"/>
+                    <field name="odoo_module_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_git_branch_search" model="ir.ui.view">
+            <field name="name">git.branch.search</field>
+            <field name="model">git.branch</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="repository_id"/>
+                    <field name="githost_id"/>
+                    <field name="gitgroup_id"/>
+                    <field name="name"/>
+                    <field name="odoo_version"/>
+                    <field name="ref_name"/>
+                    <filter string="Group by Git Host" domain="[]"
+                            context="{'group_by':'githost_id'}"/>
+                    <filter string="Group by Git Group" domain="[]"
+                            context="{'group_by':'gitgroup_id'}"/>
+                    <filter string="Group by Git Repository" domain="[]"
+                            context="{'group_by':'repository_id'}"/>
+                    <filter string="Group by odoo version" domain="[]"
+                            context="{'group_by':'odoo_version'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_branch_add_modules" model="ir.actions.server">
+            <field name="name">Search Branches modules</field>
+            <field name="model_id" ref="model_git_branch"/>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">
+                if context.get('active_model') == 'git.branch' and context.get('active_ids'):
+                pool['git.branch'].update_modules(cr, uid, context.get('active_ids'), context=context )
+            </field>
+        </record>
+
+        <!-- create id here, in order to avoid id not found -->
+        <record id="action_wizard_import_git_form"
+                model="ir.actions.act_window">
+            <field name="name">Import repositories from git</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.import.git</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="ir_branch_add_modules" model="ir.values">
+            <field name="name">action_wizard_import_git_form</field>
+            <field name="action_id" ref="action_wizard_import_git_form"/>
+            <field name="value"
+                   eval="'ir.actions.server,'+str(action_branch_add_modules)"/>
+            <field name="key">action</field>
+            <field name="model_id" ref="model_git_branch"/>
+            <field name="model">git.branch</field>
+            <field name="key2">client_action_multi</field>
+        </record>
+
+        <record id="view_git_host_form" model="ir.ui.view">
+            <field name="name">git.host.form</field>
+            <field name="model">git.host</field>
+            <field name="arch" type="xml">
+                <form string="Git host">
+                    <header>
+                        <button type="action"
+                                string="Import Repositories"
+                                name="%(action_wizard_import_git_form)d"
+                                class="oe_highlight btn btn-sm btn-primary"
+                                attrs="{'invisible':['!',('api','in',('gitlab','github'))]}"/>
+                        <button type="object"
+                                string="Import Git Groups"
+                                name="get_gitgroups"
+                                class="oe_highlight btn btn-sm btn-primary"
+                                attrs="{'invisible':[('api','!=','gitlab')]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="api"/>
+                                <field name="auth_public"/>
+                                <field name="active"/>
+                            </group>
+                            <group string="Auth Credentials">
+                                <field name="auth_ids" colspan="2" nolabel="1"
+                                       context="{'default_git_host_id':id}">
+                                    <tree editable="bottom">
+                                        <field name="user_id"/>
+                                        <field name="user_name"/>
+                                        <field name="user_password"/>
+                                        <field name="user_token"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="Git Groups">
+                                <field name="gitgroup_ids" colspan="2"
+                                       nolabel="1"
+                                       context="{'default_git_host_id':id}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="group_type"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group colspan="4" string="repositories">
+                                <field name="repository_ids" nolabel="1"
+                                       colspan="4">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="gitgroup_id"/>
+                                        <field name="gitproject_id"/>
+                                        <field name="branch_ids"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_git_repository_form" model="ir.ui.view">
+            <field name="name">git.repository.form</field>
+            <field name="model">git.repository</field>
+            <field name="arch" type="xml">
+                <form string="Git repository">
+                    <header>
+                        <button type="object"
+                                string="Import Branches"
+                                name="update_branches"
+                                class="oe_highlight btn btn-sm btn-primary"
+                                attrs="{'invisible':['!',('api','in',('gitlab','github'))]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="description"/>
+                                <field name="githost_id"/>
+                                <field name="gitproject_id"/>
+                                <field name="api" invisible="1"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="gitpath_http"/>
+                                <field name="gitpath_ssh"/>
+                                <field name="external_id_git"/>
+                            </group>
+                            <group colspan="4" string="Branches">
+                                <field name="branch_ids" nolabel="1"
+                                       colspan="4">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="odoo_version"/>
+                                        <field name="odoo_module_ids"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="docker_image_tree" model="ir.ui.view">
+            <field name="name">Docker Images</field>
+            <field name="model">docker.image</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="tag_ids"/>
+                    <field name="tags_success"/>
+                    <field name="tags_failed"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="docker_image_form" model="ir.ui.view">
+            <field name="name">Docker Images</field>
+            <field name="model">docker.image</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group colspan="4">
+                            <field name="tags_success"/>
+                            <field name="tags_failed"/>
+                        </group>
+                        <group colspan="4" string="Tags">
+                            <field name="tag_ids" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="docker_image_tag_tree" model="ir.ui.view">
+            <field name="name">Docker Image Tags</field>
+            <field name="model">docker.image.tag</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="state=='failed'"
+                      decoration-success="state=='success'">
+                    <field name="docker_image_id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="docker_image_tag_form" model="ir.ui.view">
+            <field name="name">Docker Image Tags</field>
+            <field name="model">docker.image.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group colspan="4">
+                            <field name="docker_image_id"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoo_instance" model="ir.actions.act_window">
+            <field name="name">Odoo instance</field>
+            <field name="res_model">odoo.instance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_my_instances':1}</field>
+            <field name="search_view_id" ref="view_odoo_instance_search"/>
+        </record>
+
+        <record id="action_git_hosts" model="ir.actions.act_window">
+            <field name="name">Git Hosts</field>
+            <field name="res_model">git.host</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+        <record id="action_git_repos" model="ir.actions.act_window">
+            <field name="name">Git Repositories</field>
+            <field name="res_model">git.repository</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+        <record id="action_git_branches" model="ir.actions.act_window">
+            <field name="name">Git Branches</field>
+            <field name="res_model">git.branch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+        <record id="action_docker_image" model="ir.actions.act_window">
+            <field name="name">Docker Images</field>
+            <field name="res_model">docker.image</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+        <record id="action_docker_image_tags" model="ir.actions.act_window">
+            <field name="name">Docker Image Tags</field>
+            <field name="res_model">docker.image.tag</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+        <menuitem id="menu_infrastructure_root"
+                  name="Infrastructure"
+                  sequence="8"
+                  web_icon="infrastructure_odoo,static/description/icon.png"
+                  groups="group_infra_user"/>
+
+        <menuitem name="Infrastructure" id="menu_infrastructure_infra"
+                  parent="menu_infrastructure_root" sequence="3"/>
+
+        <menuitem name="Odoo instances" id="menu_odoo_instance"
+                  parent="menu_infrastructure_infra" sequence="10"
+                  action="action_odoo_instance"/>
+
+        <menuitem name="Git" id="menu_git" parent="menu_infrastructure_root"
+                  sequence="20"/>
+
+        <menuitem name="Hosts" id="menu_git_hosts" parent="menu_git"
+                  sequence="10" action="action_git_hosts"/>
+
+        <menuitem name="Repositories" id="menu_git_repos" parent="menu_git"
+                  sequence="20" action="action_git_repos"/>
+
+        <menuitem name="Branches" id="menu_git_branches" parent="menu_git"
+                  sequence="30" action="action_git_branches"/>
+
+        <menuitem name="Docker" id="menu_docker"
+                  parent="menu_infrastructure_root"
+                  sequence="20"/>
+
+        <menuitem name="Docker Images" id="menu_docker_image"
+                  parent="menu_docker"
+                  sequence="10" action="action_docker_image"/>
+
+        <menuitem name="Docker Image Tags" id="menu_docker_image_tags"
+                  parent="menu_docker"
+                  sequence="20" action="action_docker_image_tags"/>
+
+
+    </data>
+</openerp>

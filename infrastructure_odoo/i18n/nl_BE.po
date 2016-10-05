@@ -1,0 +1,840 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * customer_docker
+# 
+# Translators:
+# Jos De Graeve <jos.degraeve@apertoso.be>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-29 15:52+0000\n"
+"PO-Revision-Date: 2016-07-29 15:52+0000\n"
+"Last-Translator: Jos De Graeve <jos.degraeve@apertoso.be>, 2016\n"
+"Language-Team: Dutch (Belgium) (https://www.transifex.com/apertoso/teams/65563/nl_BE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nl_BE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: customer_docker
+#: selection:customer.instance,odoo_version:0
+#: selection:git.branch,odoo_version:0
+msgid "7.0"
+msgstr ""
+
+#. module: customer_docker
+#: selection:customer.instance,odoo_version:0
+#: selection:git.branch,odoo_version:0
+msgid "8.0"
+msgstr ""
+
+#. module: customer_docker
+#: selection:customer.instance,odoo_version:0
+#: selection:git.branch,odoo_version:0
+msgid "9.0"
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.ui.view,arch_db:customer_docker.view_customer_instance_form
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<form string=\"Customer Instance\">\n"
+"                    <header>\n"
+"                        <field name=\"state\" widget=\"statusbar\" clickable=\"1\"/>\n"
+"                    </header>\n"
+"                    <sheet>\n"
+"                        <div class=\"oe_title\">\n"
+"                            <label for=\"name\" class=\"oe_edit_only\" string=\"Name\"/>\n"
+"                            <h1>\n"
+"                                <field name=\"name\"/>\n"
+"                            </h1>\n"
+"                        </div>\n"
+"                        <group>\n"
+"                            <group>\n"
+"                                <field name=\"partner_id\"/>\n"
+"                                <field name=\"odoo_version\"/>\n"
+"                                <field name=\"version\"/>\n"
+"                                <field name=\"parent_ids\" widget=\"many2many_tags\"/>\n"
+"                            </group>\n"
+"                            <group>\n"
+"                                <field name=\"db_name\"/>\n"
+"                                <field name=\"odoo_master_pwd\"/>\n"
+"                                <field name=\"key\"/>\n"
+"                                <field name=\"export_url\"/>\n"
+"                            </group>\n"
+"                        </group>\n"
+"                        <group>\n"
+"                            <separator string=\"Used Branches\"/>\n"
+"                            <field name=\"branch_ids\" colspan=\"4\" nolabel=\"1\" context=\"{'default_instance_id':id}\">\n"
+"                                <tree>\n"
+"                                    <field name=\"branch_id\"/>\n"
+"                                    <field name=\"enabled_module_ids\"/>\n"
+"                                    <field name=\"repository_id\"/>\n"
+"                                    <field name=\"odoo_version\"/>\n"
+"                                </tree>\n"
+"                                <form>\n"
+"                                    <field name=\"branch_id\"/>\n"
+"                                    <field name=\"enabled_module_ids\"/>\n"
+"                                </form>\n"
+"                            </field>\n"
+"                        </group>\n"
+"                    </sheet>\n"
+"                </form>\n"
+"            "
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.ui.view,arch_db:customer_docker.view_git_branch_form
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<form string=\"Git Branch\">\n"
+"                    <header>\n"
+"                        <button type=\"object\" string=\"Import modules\" name=\"update_modules\" class=\"oe_highlight btn btn-sm btn-primary\" attrs=\"{'invisible':['!',('api','in',('gitlab','github'))]}\"/>\n"
+"\n"
+"                    </header>\n"
+"                    <sheet>\n"
+"                        <div class=\"oe_title\">\n"
+"                            <label for=\"name\" class=\"oe_edit_only\" string=\"Repository - Name\"/>\n"
+"                            <h1>\n"
+"                                <field name=\"repository_id\" class=\"oe_inline\"/>\n"
+"                                <span class=\"oe_read_only\">(</span>\n"
+"                                <field name=\"name\"/>\n"
+"                                <span class=\"oe_read_only\">)</span>\n"
+"                            </h1>\n"
+"                        </div>\n"
+"                        <group>\n"
+"                            <group>\n"
+"                                <field name=\"api\" invisible=\"1\"/>\n"
+"                                <field name=\"odoo_version\"/>\n"
+"                                <field name=\"ref_name\"/>\n"
+"                            </group>\n"
+"                        </group>\n"
+"                        <separator string=\"Odoo Modules\"/>\n"
+"                        <field name=\"odoo_module_ids\" nolabel=\"1\" colspan=\"4\" context=\"{'default_branch_id':id}\"/>\n"
+"                    </sheet>\n"
+"                </form>\n"
+"            "
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.ui.view,arch_db:customer_docker.view_git_host_form
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<form string=\"Git host\">\n"
+"                    <header>\n"
+"                        <button type=\"action\" string=\"Import Repositories\" name=\"1514\" class=\"oe_highlight btn btn-sm btn-primary\" attrs=\"{'invisible':['!',('api','in',('gitlab','github'))]}\"/>\n"
+"                        <button type=\"object\" string=\"Import Git Groups\" name=\"get_gitgroups\" class=\"oe_highlight btn btn-sm btn-primary\" attrs=\"{'invisible':[('api','!=','gitlab')]}\"/>\n"
+"                    </header>\n"
+"                    <sheet>\n"
+"                        <div class=\"oe_title\">\n"
+"                            <label for=\"name\" class=\"oe_edit_only\"/>\n"
+"                            <h1>\n"
+"                                <field name=\"name\"/>\n"
+"                            </h1>\n"
+"                        </div>\n"
+"                        <group>\n"
+"                            <group>\n"
+"                                <field name=\"api\"/>\n"
+"                                <field name=\"auth_public\"/>\n"
+"                                <field name=\"active\"/>\n"
+"                            </group>\n"
+"                            <group string=\"Auth Credentials\">\n"
+"                                <field name=\"auth_ids\" colspan=\"2\" nolabel=\"1\" context=\"{'default_git_host_id':id}\">\n"
+"                                    <tree editable=\"bottom\">\n"
+"                                        <field name=\"user_id\"/>\n"
+"                                        <field name=\"user_name\"/>\n"
+"                                        <field name=\"user_password\"/>\n"
+"                                        <field name=\"user_token\"/>\n"
+"                                    </tree>\n"
+"                                </field>\n"
+"                            </group>\n"
+"                            <group string=\"Git Groups\">\n"
+"                                <field name=\"gitgroup_ids\" colspan=\"2\" nolabel=\"1\" context=\"{'default_git_host_id':id}\">\n"
+"                                    <tree>\n"
+"                                        <field name=\"name\"/>\n"
+"                                        <field name=\"group_type\"/>\n"
+"                                    </tree>\n"
+"                                </field>\n"
+"                            </group>\n"
+"                            <group colspan=\"4\" string=\"repositories\">\n"
+"                                <field name=\"repository_ids\" nolabel=\"1\" colspan=\"4\">\n"
+"                                    <tree>\n"
+"                                        <field name=\"name\"/>\n"
+"                                        <field name=\"gitgroup_id\"/>\n"
+"                                        <field name=\"gitproject_id\"/>\n"
+"                                        <field name=\"branch_ids\"/>\n"
+"                                    </tree>\n"
+"                                </field>\n"
+"                            </group>\n"
+"                        </group>\n"
+"                    </sheet>\n"
+"                </form>\n"
+"            "
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.ui.view,arch_db:customer_docker.view_git_repository_form
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<form string=\"Git repository\">\n"
+"                    <header>\n"
+"                        <button type=\"object\" string=\"Import Branches\" name=\"update_branches\" class=\"oe_highlight btn btn-sm btn-primary\" attrs=\"{'invisible':['!',('api','in',('gitlab','github'))]}\"/>\n"
+"                    </header>\n"
+"                    <sheet>\n"
+"                        <div class=\"oe_title\">\n"
+"                            <label for=\"name\" class=\"oe_edit_only\"/>\n"
+"                            <h1>\n"
+"                                <field name=\"name\"/>\n"
+"                            </h1>\n"
+"                        </div>\n"
+"                        <group>\n"
+"                            <group>\n"
+"                                <field name=\"description\"/>\n"
+"                                <field name=\"githost_id\"/>\n"
+"                                <field name=\"gitproject_id\"/>\n"
+"                                <field name=\"api\" invisible=\"1\"/>\n"
+"                                <field name=\"active\"/>\n"
+"                            </group>\n"
+"                            <group>\n"
+"                                <field name=\"gitpath_http\"/>\n"
+"                                <field name=\"gitpath_ssh\"/>\n"
+"                                <field name=\"external_id_git\"/>\n"
+"                            </group>\n"
+"                            <group colspan=\"4\" string=\"repositories\">\n"
+"                                <field name=\"branch_ids\" nolabel=\"1\" colspan=\"4\">\n"
+"                                    <tree>\n"
+"                                        <field name=\"name\"/>\n"
+"                                        <field name=\"odoo_version\"/>\n"
+"                                    </tree>\n"
+"                                </field>\n"
+"                            </group>\n"
+"                        </group>\n"
+"                    </sheet>\n"
+"                </form>\n"
+"            "
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.ui.view,arch_db:customer_docker.view_wizard_import_git_form
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<form>\n"
+"                    <group>\n"
+"                        <field name=\"githost_id\"/>\n"
+"                        <field name=\"gitgroup_id\"/>\n"
+"                    </group>\n"
+"                    <separator string=\"Repositories to add\"/>\n"
+"                    <field name=\"repository_ids\" colspan=\"4\">\n"
+"                        <tree>\n"
+"                            <field name=\"name\"/>\n"
+"                            <field name=\"external_id_git\"/>\n"
+"                        </tree>\n"
+"                    </field>\n"
+"\n"
+"                     <footer>\n"
+"                        <button name=\"do_create_repositories\" string=\"Add repositories\" type=\"object\" class=\"oe_highlight\"/>\n"
+"                         or\n"
+"                        <button string=\"Cancel\" class=\"oe_link\" special=\"cancel\"/>\n"
+"                    </footer>\n"
+"                </form>\n"
+"            "
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.ui.view,arch_db:customer_docker.view_customer_instance_search
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<search string=\"Customer Instances\">\n"
+"                    <field name=\"name\"/>\n"
+"                    <field name=\"partner_id\"/>\n"
+"                    <filter name=\"state\"/>\n"
+"                    <filter name=\"odoo_version\"/>\n"
+"                    <field name=\"version\"/>\n"
+"                </search>\n"
+"            "
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.ui.view,arch_db:customer_docker.view_customer_instance_tree
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<tree string=\"Customer Instances\">\n"
+"                    <field name=\"name\"/>\n"
+"                    <field name=\"odoo_version\"/>\n"
+"                    <field name=\"version\"/>\n"
+"                    <field name=\"state\" widget=\"statusbar\"/>\n"
+"                </tree>\n"
+"            "
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.ui.view,arch_db:customer_docker.view_git_branch_tree
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<tree>\n"
+"                    <field name=\"repository_id\"/>\n"
+"                    <field name=\"name\"/>\n"
+"                    <field name=\"odoo_version\"/>\n"
+"                    <field name=\"ref_name\"/>\n"
+"                </tree>\n"
+"            "
+msgstr ""
+
+#. module: customer_docker
+#: field:git.host,api:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_api
+msgid "API"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.host,auth_ids:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_auth_ids
+msgid "Auth Credentials"
+msgstr "Authenticatie verificatiegegevens"
+
+#. module: customer_docker
+#: code:addons/customer_docker/models/customer_instance.py:70
+#, python-format
+msgid "Branch odoo version mismatch"
+msgstr "Branch odoo versie combinatie fout"
+
+#. module: customer_docker
+#: model:ir.ui.menu,name:customer_docker.menu_git_branches
+msgid "Branches"
+msgstr "Branch"
+
+#. module: customer_docker
+#: field:customer.instance,create_uid:0
+#: field:customer.instance.branch,create_uid:0 field:git.branch,create_uid:0
+#: field:git.credential,create_uid:0 field:git.group,create_uid:0
+#: field:git.host,create_uid:0 field:git.project,create_uid:0
+#: field:git.repository,create_uid:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_project_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_odoo_module_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_create_uid
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_create_uid
+#: field:odoo.module,create_uid:0 field:wizard.import.git,create_uid:0
+#: field:wizard.import.git.repository,create_uid:0
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: customer_docker
+#: field:customer.instance,create_date:0
+#: field:customer.instance.branch,create_date:0 field:git.branch,create_date:0
+#: field:git.credential,create_date:0 field:git.group,create_date:0
+#: field:git.host,create_date:0 field:git.project,create_date:0
+#: field:git.repository,create_date:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_project_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_odoo_module_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_create_date
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_create_date
+#: field:odoo.module,create_date:0 field:wizard.import.git,create_date:0
+#: field:wizard.import.git.repository,create_date:0
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: customer_docker
+#: field:customer.instance,partner_id:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_partner_id
+msgid "Customer"
+msgstr "Klant"
+
+#. module: customer_docker
+#: field:customer.instance.branch,instance_id:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_instance_id
+msgid "Customer Instance"
+msgstr "Klant instantie"
+
+#. module: customer_docker
+#: model:ir.actions.act_window,name:customer_docker.action_customer_instance
+#: model:ir.ui.menu,name:customer_docker.menu_customer_instance
+msgid "Customer instance"
+msgstr "Klant instantie"
+
+#. module: customer_docker
+#: field:customer.instance,db_name:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_db_name
+msgid "Db name"
+msgstr "DB naam"
+
+#. module: customer_docker
+#: field:git.repository,branch_ids:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_branch_ids
+msgid "Default branch"
+msgstr "Standaard branch"
+
+#. module: customer_docker
+#: field:git.project,description:0 field:git.repository,description:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_project_description
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_description
+msgid "Description"
+msgstr "Omschrijving"
+
+#. module: customer_docker
+#: selection:customer.instance,state:0
+msgid "Development"
+msgstr "Ontwikkeling"
+
+#. module: customer_docker
+#: model:ir.ui.menu,name:customer_docker.menu_docker_management
+msgid "Docker"
+msgstr "Docker"
+
+#. module: customer_docker
+#: field:customer.instance.branch,enabled_module_ids:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_enabled_module_ids
+msgid "Enabled modules"
+msgstr "Ingeschakelde modules"
+
+#. module: customer_docker
+#: model:ir.ui.menu,name:customer_docker.menu_git
+msgid "Git"
+msgstr "Git"
+
+#. module: customer_docker
+#: model:ir.actions.act_window,name:customer_docker.action_git_branches
+msgid "Git Branches"
+msgstr "Git Branches"
+
+#. module: customer_docker
+#: field:git.host,gitgroup_ids:0 field:git.repository,gitgroup_id:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_gitgroup_ids
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_gitgroup_id
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_gitgroup_id
+#: field:wizard.import.git,gitgroup_id:0
+msgid "Git Group"
+msgstr "Git Groep"
+
+#. module: customer_docker
+#: field:git.credential,git_host_id:0 field:git.group,githost_id:0
+#: field:git.repository,githost_id:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_git_host_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_githost_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_githost_id
+msgid "Git Host"
+msgstr "Git Host"
+
+#. module: customer_docker
+#: model:ir.actions.act_window,name:customer_docker.action_git_hosts
+msgid "Git Hosts"
+msgstr "Git Hosts"
+
+#. module: customer_docker
+#: field:git.branch,gitproject_id:0 field:git.repository,gitproject_id:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_gitproject_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_gitproject_id
+msgid "Git Project"
+msgstr "Git Project"
+
+#. module: customer_docker
+#: model:ir.actions.act_window,name:customer_docker.action_git_repos
+msgid "Git Repositories"
+msgstr "Git Repositories"
+
+#. module: customer_docker
+#: selection:git.host,api:0
+msgid "Git over http"
+msgstr "Git over http"
+
+#. module: customer_docker
+#: selection:git.host,api:0
+msgid "GitHub API"
+msgstr "GitHub API"
+
+#. module: customer_docker
+#: selection:git.host,api:0
+msgid "GitLab API"
+msgstr "GitLab API"
+
+#. module: customer_docker
+#: code:addons/customer_docker/models/git.py:63
+#: code:addons/customer_docker/models/git.py:72
+#: code:addons/customer_docker/models/git.py:159
+#: code:addons/customer_docker/models/git.py:179
+#: code:addons/customer_docker/models/git.py:289
+#: code:addons/customer_docker/models/git.py:362
+#: code:addons/customer_docker/wizard/wizard_import_git.py:72
+#, python-format
+msgid "Githost api %s not yet implemented"
+msgstr "Githost api %s not niet geïmplementeerd"
+
+#. module: customer_docker
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_githost_id
+#: field:wizard.import.git,githost_id:0
+msgid "Githost id"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.group,group_type:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_group_type
+msgid "Group Type"
+msgstr "Groep Type"
+
+#. module: customer_docker
+#: model:ir.ui.menu,name:customer_docker.menu_git_hosts
+msgid "Hosts"
+msgstr ""
+
+#. module: customer_docker
+#: field:customer.instance,id:0 field:customer.instance.branch,id:0
+#: field:git.branch,id:0 field:git.credential,id:0 field:git.group,id:0
+#: field:git.host,id:0 field:git.project,id:0 field:git.repository,id:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_id
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_project_id
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_id
+#: model:ir.model.fields,field_description:customer_docker.field_odoo_module_id
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_id
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_id
+#: field:odoo.module,id:0 field:wizard.import.git,id:0
+#: field:wizard.import.git.repository,id:0
+msgid "ID"
+msgstr ""
+
+#. module: customer_docker
+#: help:git.credential,user_id:0
+#: model:ir.model.fields,help:customer_docker.field_git_credential_user_id
+msgid "If this field is blank, this credentials can be used by all users"
+msgstr ""
+"Als dit veld blanco is, kunnen deze verificatie gegevens door alle "
+"gebruikers gebruikt worden"
+
+#. module: customer_docker
+#: model:ir.actions.act_window,name:customer_docker.action_wizard_import_git_form
+msgid "Import repositories from git"
+msgstr "Importeer gegevens vanaf git"
+
+#. module: customer_docker
+#: field:customer.instance,key:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_key
+msgid "Key"
+msgstr "Sleutel"
+
+#. module: customer_docker
+#: field:customer.instance,write_uid:0
+#: field:customer.instance.branch,write_uid:0 field:git.branch,write_uid:0
+#: field:git.credential,write_uid:0 field:git.group,write_uid:0
+#: field:git.host,write_uid:0 field:git.project,write_uid:0
+#: field:git.repository,write_uid:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_project_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_odoo_module_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_write_uid
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_write_uid
+#: field:odoo.module,write_uid:0 field:wizard.import.git,write_uid:0
+#: field:wizard.import.git.repository,write_uid:0
+msgid "Last Updated by"
+msgstr "Laatst Bijgewerkt door"
+
+#. module: customer_docker
+#: field:customer.instance,write_date:0
+#: field:customer.instance.branch,write_date:0 field:git.branch,write_date:0
+#: field:git.credential,write_date:0 field:git.group,write_date:0
+#: field:git.host,write_date:0 field:git.project,write_date:0
+#: field:git.repository,write_date:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_project_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_odoo_module_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_write_date
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_write_date
+#: field:odoo.module,write_date:0 field:wizard.import.git,write_date:0
+#: field:wizard.import.git.repository,write_date:0
+msgid "Last Updated on"
+msgstr "Laatst Bijgewerkt op"
+
+#. module: customer_docker
+#: field:customer.instance,name:0 field:git.branch,name:0
+#: field:git.host,name:0 field:git.repository,name:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_name
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_name
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_name
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_name
+#: model:ir.model.fields,field_description:customer_docker.field_odoo_module_name
+#: field:odoo.module,name:0
+msgid "Name"
+msgstr "Naam"
+
+#. module: customer_docker
+#: code:addons/customer_docker/models/git.py:43
+#, python-format
+msgid "No valid credentials found for host %s and user %s"
+msgstr ""
+"Geen geldige verificatie gegevens gevonden voor host %s en gebruiker %s"
+
+#. module: customer_docker
+#: field:customer.instance,odoo_master_pwd:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_odoo_master_pwd
+msgid "Odoo Master pwd"
+msgstr "Odoo hoofd wachtwoord"
+
+#. module: customer_docker
+#: field:git.branch,odoo_module_ids:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_odoo_module_ids
+msgid "Odoo Modules"
+msgstr "Odoo Modules"
+
+#. module: customer_docker
+#: field:customer.instance,odoo_version:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_odoo_version
+msgid "Odoo version"
+msgstr "Odoo versie"
+
+#. module: customer_docker
+#: selection:git.group,group_type:0
+msgid "Organisation / Group"
+msgstr "Organisatie / Groep"
+
+#. module: customer_docker
+#: code:addons/customer_docker/models/customer_instance.py:75
+#, python-format
+msgid "Parent odoo version mismatch"
+msgstr "Bovenliggende odoo versie combinatie fout"
+
+#. module: customer_docker
+#: field:customer.instance,parent_ids:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_parent_ids
+msgid "Parents"
+msgstr "Bovenliggende items"
+
+#. module: customer_docker
+#: field:git.repository,gitpath_http:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_gitpath_http
+msgid "Path (http)"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.repository,gitpath_ssh:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_gitpath_ssh
+msgid "Path (ssh)"
+msgstr ""
+
+#. module: customer_docker
+#: selection:customer.instance,state:0
+msgid "Production"
+msgstr "Productie"
+
+#. module: customer_docker
+#: field:customer.instance.branch,branch_id:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_branch_id
+msgid "Project Branch"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.branch,ref_name:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_ref_name
+msgid "Ref name"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.host,repository_ids:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_repository_ids
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_ids
+#: model:ir.ui.menu,name:customer_docker.menu_git_repos
+#: field:wizard.import.git,repository_ids:0
+msgid "Repositories"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.branch,repository_id:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_repository_id
+msgid "Repository"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.credential,sequence:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_sequence
+msgid "Sequence"
+msgstr "Volgorde"
+
+#. module: customer_docker
+#: field:customer.instance,state:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_state
+msgid "State"
+msgstr "Status"
+
+#. module: customer_docker
+#: selection:customer.instance,state:0
+msgid "Test"
+msgstr ""
+
+#. module: customer_docker
+#: sql_constraint:git.project:0
+msgid "This Git Project name is already in use"
+msgstr "Deze Git project naam is reeds in gebruik"
+
+#. module: customer_docker
+#: sql_constraint:customer.instance:0
+msgid "This key is already in use"
+msgstr "Deze sleutel is reeds in gebruik"
+
+#. module: customer_docker
+#: field:customer.instance,branch_ids:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_branch_ids
+msgid "Used Branches"
+msgstr "Gebruikte branches"
+
+#. module: customer_docker
+#: selection:git.group,group_type:0
+msgid "User"
+msgstr "Gebruiker"
+
+#. module: customer_docker
+#: field:git.credential,user_name:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_user_name
+msgid "User Name"
+msgstr "Gebruikersnaam"
+
+#. module: customer_docker
+#: field:git.credential,user_password:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_user_password
+msgid "User Password"
+msgstr "Gebruikers wachtwoord"
+
+#. module: customer_docker
+#: field:git.credential,user_token:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_user_token
+msgid "User Token"
+msgstr "Gebruikers Token"
+
+#. module: customer_docker
+#: field:git.credential,user_id:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_user_id
+msgid "User id"
+msgstr "Gebruiker id"
+
+#. module: customer_docker
+#: model:ir.model,name:customer_docker.model_res_users
+msgid "Users"
+msgstr "Gebruikers"
+
+#. module: customer_docker
+#: field:customer.instance,version:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_version
+msgid "Version"
+msgstr "Versie"
+
+#. module: customer_docker
+#: field:customer.instance,active:0 field:git.branch,active:0
+#: field:git.credential,active:0 field:git.group,active:0
+#: field:git.host,active:0 field:git.project,active:0
+#: field:git.repository,active:0
+#: model:ir.model.fields,field_description:customer_docker.field_customer_instance_active
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_active
+#: model:ir.model.fields,field_description:customer_docker.field_git_credential_active
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_active
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_active
+#: model:ir.model.fields,field_description:customer_docker.field_git_project_active
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_active
+#: model:ir.model.fields,field_description:customer_docker.field_odoo_module_active
+#: field:odoo.module,active:0
+msgid "active"
+msgstr "actief"
+
+#. module: customer_docker
+#: model:ir.model.fields,field_description:customer_docker.field_odoo_module_branch_id
+#: field:odoo.module,branch_id:0
+msgid "branch"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.group,description:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_description
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_description
+#: field:wizard.import.git.repository,description:0
+msgid "description"
+msgstr "omschrijving"
+
+#. module: customer_docker
+#: field:git.group,external_id_git:0 field:git.repository,external_id_git:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_external_id_git
+#: model:ir.model.fields,field_description:customer_docker.field_git_repository_external_id_git
+msgid "git external api id"
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_gitgroup_id
+#: field:wizard.import.git.repository,gitgroup_id:0
+msgid "git group id"
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_githost_id
+#: field:wizard.import.git.repository,githost_id:0
+msgid "git host id"
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_external_id_git
+#: field:wizard.import.git.repository,external_id_git:0
+msgid "git id"
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.model,name:customer_docker.model_git_group
+msgid "github organisations / gitlab groups"
+msgstr "github organisaties / gitlab groepen"
+
+#. module: customer_docker
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_gitpath_http
+#: field:wizard.import.git.repository,gitpath_http:0
+msgid "gitpath_http"
+msgstr ""
+
+#. module: customer_docker
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_gitpath_ssh
+#: field:wizard.import.git.repository,gitpath_ssh:0
+msgid "gitpath_ssh"
+msgstr ""
+
+#. module: customer_docker
+#: field:git.host,auth_public:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_host_auth_public
+msgid "is auth required for this host"
+msgstr "is authenticatie verplicht voor deze host"
+
+#. module: customer_docker
+#: field:git.group,name:0 field:git.project,name:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_group_name
+#: model:ir.model.fields,field_description:customer_docker.field_git_project_name
+#: model:ir.model.fields,field_description:customer_docker.field_wizard_import_git_repository_name
+#: field:wizard.import.git.repository,name:0
+msgid "name"
+msgstr "naam"
+
+#. module: customer_docker
+#: field:git.branch,odoo_version:0
+#: model:ir.model.fields,field_description:customer_docker.field_git_branch_odoo_version
+msgid "odoo version"
+msgstr "odoo versie"

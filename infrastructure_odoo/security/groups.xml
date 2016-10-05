@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="category_infrastructure" model="ir.module.category">
+            <field name="name">Infrastructure</field>
+            <field name="sequence" eval="100"/>
+        </record>
+
+        <record id="group_infra_user" model="res.groups">
+            <field name="name">Infrastructure User</field>
+            <field name="category_id" ref="category_infrastructure"/>
+        </record>
+
+        <record id="group_infra_manager" model="res.groups">
+            <field name="name">Infrastructure Manager</field>
+            <field name="category_id" ref="category_infrastructure"/>
+            <field name="implied_ids" eval="[(4, ref('group_infra_user'))]"/>
+        </record>
+
+    
+    </data>
+</openerp>
